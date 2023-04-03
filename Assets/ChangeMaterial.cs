@@ -24,16 +24,15 @@ public class ChangeMaterial : MonoBehaviour
 
     private void Respawn()
     {
-
     }
     private void SetObjectOff()
     {
         collisonObject.SetActive(false);
         timer++;
 
-        if (timer => 30 )
+        if (timer >= 30 )
         {
-
+            Respawn();
         }
     }
 }
