@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HittingDoor : MonoBehaviour
 {
-    [SerializeField]
-    private float playTime;
+    public UnityEvent triggerClick;
+
     [SerializeField]
     private float timesHaveToHit;
 
@@ -17,7 +18,7 @@ public class HittingDoor : MonoBehaviour
             hitDoorCounter ++;
             if (hitDoorCounter > timesHaveToHit)
             {
-                Invoke("animation",playTime);
+                triggerClick.Invoke();
             }
         }
     }

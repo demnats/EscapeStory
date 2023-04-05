@@ -36,12 +36,18 @@ public class PaintBucket : MonoBehaviour
                 ChangeColor(flower.Color);
             }
             other.gameObject.SetActive(false);
+            RespawnFlowers();
         }
     }
 
     private void MixColor(Color color)
     {
         material.color += color;
+    }
+
+    private void RespawnFlowers()
+    {
+
     }
 
     public void ChangeColor(Color color)
