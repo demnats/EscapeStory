@@ -13,10 +13,7 @@ public class PickUpController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (holdingItem == null) return;
-            holdingItem.transform.SetParent(null);
-            holdingItem.GetComponent<Rigidbody>().isKinematic = false;
-            holdingItem = null;
+            DropItem();
         }
         if (holdingItem != null) return;
             RaycastHit hit;
@@ -30,5 +27,13 @@ public class PickUpController : MonoBehaviour
                     hit.transform.SetParent(handTransform);
                 }
             }        
+    }
+
+    public void DropItem()
+    {
+        if (holdingItem == null) return;
+        holdingItem.transform.SetParent(null);
+        holdingItem.GetComponent<Rigidbody>().isKinematic = false;
+        holdingItem = null;
     }
 }

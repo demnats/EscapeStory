@@ -35,8 +35,9 @@ public class PaintBucket : MonoBehaviour
                 colorSet = true;
                 ChangeColor(flower.Color);
             }
-            other.gameObject.SetActive(false);
-            RespawnFlowers();
+            //other.gameObject.SetActive(false);
+            other.gameObject.GetComponent<Renderer>().enabled = false;
+            flower.RespawnFlowers();
         }
     }
 
@@ -45,10 +46,7 @@ public class PaintBucket : MonoBehaviour
         material.color += color;
     }
 
-    private void RespawnFlowers()
-    {
 
-    }
 
     public void ChangeColor(Color color)
     {
