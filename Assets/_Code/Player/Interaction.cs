@@ -16,10 +16,6 @@ public class Interaction : MonoBehaviour
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, distance))
             {
-                //debug
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow, 5f);
-                Debug.Log(hit.collider.gameObject.name);
-
                 IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>(); 
                 if(interactable != null)
                 {

@@ -6,11 +6,12 @@ TagManager:
   tags:
   - PickUpObjects
   - Door
+  - Waypoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 

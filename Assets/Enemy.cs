@@ -6,51 +6,75 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent meshAgent;
+    private Animator animator;
 
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float viewRadius;
-    [SerializeField] private float lookDistance;
-    [SerializeField] private GameObject player;
+    [SerializeField]
+    private Transform[] wayPoint;
+    private int wayPointNumber;
 
-    [SerializeField] private float minAngeryScale, maxAngeryScale;
+    [SerializeField] Transform target;
+    [SerializeField] FieldOfView fieldOfView;
 
-    private float angeryScale;
-    private bool somethingBreaks = false;
+    [SerializeField]
+    private float playerLostAfterSeconds = 3;
+    private float playerLost = 0;
 
-    void Start()
+    private void Start()
     {
+        animator = GetComponent<Animator>();
         meshAgent = GetComponent<NavMeshAgent>();
-        meshAgent.speed = walkSpeed;
+        fieldOfView = GetComponent<FieldOfView>();
+
+        fieldOfView.seePlayer += SetTarget;
+        fieldOfView.unseePlayer += LoseTarget;
     }
 
-    void Update()
+    private void Update()
     {
-
-        Chasing();
-
-        if (somethingBreaks)
+        if(target != null)
         {
-            angeryScale++;
+            Chasing();
+        }
+        else
+        {
+            Search();
+        }
+        print(playerLost);
+    }
+
+    public void NextWaypoint()
+    {
+        wayPointNumber = Random.Range(0, wayPoint.Length);
+    }
+
+    private void Search()
+    {
+        meshAgent.SetDestination(wayPoint[wayPointNumber].position);
+    }
+
+    private void SetTarget(Transform t)
+    {
+        if(playerLost != 0)
+        {
+            animator.SetTrigger("SeePlayer");
+        }
+
+        target = t;
+        playerLost = 0;
+    }
+
+    private void LoseTarget()
+    {
+        playerLost += Time.deltaTime;
+        if (playerLost > playerLostAfterSeconds)
+        {
+            target = null;
+            animator.ResetTrigger("SeePlayer");
         }
     }
-    private void Spawn()
-    {
-        Vector3 distancePlayer = transform.position - player.transform.position;
-
-        /*if (distancePlayer <= lookDistance)
-        {
-            distancePlayer.Normalize();
-        }*/
-    }
-
-    private void DeSpawn()
-    {
-
-    }
-
 
     private void Chasing()
     {
-
+        meshAgent.SetDestination(target.position);
     }
 }

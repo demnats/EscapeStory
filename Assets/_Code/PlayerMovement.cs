@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public UnityEvent Running;
+
     [SerializeField] private float move;
 
     private float gravity = -9.81f;
@@ -21,7 +24,18 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        move = Input.GetKey(KeyCode.LeftShift) ? sneakWalkSpeed : movementSpeed;
+        if(!Input.GetKey(KeyCode.LeftShift))
+        {
+            move = movementSpeed;
+            if(z != 0 || x != 0)
+            {
+                Running.Invoke();
+            }
+        }
+        else
+        {
+            move = sneakWalkSpeed;
+        }
 
         controller.Move((z * transform.forward + x * transform.right) * move);
 
