@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
+    public UnityEvent See;
+
     private NavMeshAgent meshAgent;
     private Animator animator;
 
@@ -56,6 +59,7 @@ public class Enemy : MonoBehaviour
         if(playerLost != 0)
         {
             animator.SetTrigger("SeePlayer");
+            See.Invoke();
         }
 
         target = t;
