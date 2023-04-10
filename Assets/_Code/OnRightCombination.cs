@@ -7,6 +7,8 @@ public class OnRightCombination : MonoBehaviour
 {
     public UnityEvent OnCombi;
 
+    public bool rightCombi = false;
+
     [SerializeField] private Color key;
 
     private void OnTriggerEnter(Collider other)
@@ -17,6 +19,7 @@ public class OnRightCombination : MonoBehaviour
             if (bucket.Color == key)
             {
                 OnCombi.Invoke();
+                rightCombi = true;
             }
         }
     }

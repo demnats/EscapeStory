@@ -39,7 +39,6 @@ public class Enemy : MonoBehaviour
         {
             Search();
         }
-        print(playerLost);
     }
 
     public void NextWaypoint()
