@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaintBucket : MonoBehaviour
+public class PaintBucket : MonoBehaviour, IRequire
 {
     [SerializeField] private Color startColor;
 
@@ -25,12 +25,12 @@ public class PaintBucket : MonoBehaviour
         material.color = startColor;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public bool Interact(GameObject requiredItem)
     {
-        Flower flower = other.GetComponent<Flower>();
+        Flower flower = requiredItem.GetComponent<Flower>();
         if (flower != null)
         {
-            if(colorSet)
+            if (colorSet)
             {
                 MixColor(flower.Color);
             }
@@ -39,10 +39,20 @@ public class PaintBucket : MonoBehaviour
                 colorSet = true;
                 ChangeColor(flower.Color);
             }
+            flower.transform.SetParent(null);
+            requiredItem.layer = 0;
             //other.gameObject.SetActive(false);
-            other.gameObject.GetComponent<Renderer>().enabled = false;
+            requiredItem.GetComponent<Renderer>().enabled = false;
             flower.RespawnFlowers();
+            return true;
         }
+        Key key = requiredItem.GetComponent<Key>();
+        if(key != null)
+        {
+            key.SetColor(material.color);
+        }
+
+        return false;
     }
 
     private void Update()

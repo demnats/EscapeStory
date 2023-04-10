@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PickUp : MonoBehaviour, IInteractable
+public class Item : MonoBehaviour, IItem
 {
     public UnityEvent PickedUp;
     public UnityEvent Droped;
 
-    public virtual void Interact()
+    public virtual void PickUp()
     {
         PickedUp.Invoke();
     }

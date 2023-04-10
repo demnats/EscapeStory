@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class OnRightCombination : MonoBehaviour
+public class OnRightCombination : MonoBehaviour, IRequire
 {
     public UnityEvent OnCombi;
 
@@ -11,10 +11,10 @@ public class OnRightCombination : MonoBehaviour
 
     [SerializeField] private Color key;
 
-    private void OnTriggerEnter(Collider other)
+    public bool Interact(GameObject requiredItem)
     {
-        PaintBucket bucket = other.GetComponent<PaintBucket>();
-        if(bucket != null)
+        PaintBucket bucket = requiredItem.GetComponent<PaintBucket>();
+        if (bucket != null)
         {
             if (bucket.Color == key)
             {
@@ -22,5 +22,6 @@ public class OnRightCombination : MonoBehaviour
                 rightCombi = true;
             }
         }
+        return false;
     }
 }

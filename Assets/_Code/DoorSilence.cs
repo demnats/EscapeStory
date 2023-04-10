@@ -5,12 +5,11 @@ using UnityEngine.Events;
 
 public class DoorSilence : MonoBehaviour
 {
-    public OnRightCombination rightCobi;
     public UnityEvent TriggerEnter;
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && rightCobi.rightCombi)
+        if (other.gameObject.tag == "Player")
         {
             print("It is working");
             TriggerEnter.Invoke();

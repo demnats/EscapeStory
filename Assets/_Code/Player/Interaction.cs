@@ -7,15 +7,19 @@ public class Interaction : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private float distance = 1f;
 
-    private IItem activeItem;
+    [SerializeField] private Inventory inventory;
+
+    [SerializeField] LayerMask mask;
 
     void Update()
     {
         RaycastHit hit;
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, distance))
+            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, distance, mask))
             {
+                print(hit.collider.gameObject.name);
+
                 IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>(); 
                 if(interactable != null)
                 {
@@ -25,17 +29,23 @@ public class Interaction : MonoBehaviour
                 IItem item = hit.collider.gameObject.GetComponent<IItem>();
                 if (item != null)
                 {
-                    item.PickUp();
+                    inventory.PickUp(hit.collider.gameObject);
+                }
+
+                IRequire requiredIteractable = hit.collider.gameObject.GetComponent<IRequire>();
+                if(requiredIteractable != null)
+                {
+                    if(requiredIteractable.Interact(inventory.HoldingItem))
+                    {
+                        inventory.DropItem();
+                    }
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (activeItem != null)
-            {
-                activeItem.Drop();
-            }
+            inventory.DropItem();
         }
     }
 }
@@ -43,10 +53,4 @@ public class Interaction : MonoBehaviour
 public interface IInteractable
 {
     void Interact();
-}
-
-public interface IItem
-{
-    void PickUp();
-    void Drop();
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Flower : PickUp
+public class Flower : Item
 {
     private Material material;
 
