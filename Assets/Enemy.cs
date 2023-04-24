@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Enemy : MonoBehaviour
 {
     public UnityEvent See;
+    public UnityEvent Walk;
 
     private NavMeshAgent meshAgent;
     private Animator animator;
@@ -34,13 +35,13 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(target != null)
+        if (target != null)
         {
-            Chasing();
+            Chasing(); 
         }
         else
         {
-            Search();
+            Search(); 
         }
     }
 
@@ -79,5 +80,6 @@ public class Enemy : MonoBehaviour
     private void Chasing()
     {
         meshAgent.SetDestination(target.position);
+        Walk.Invoke();
     }
 }
