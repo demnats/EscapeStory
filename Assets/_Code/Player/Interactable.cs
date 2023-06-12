@@ -5,10 +5,10 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour, IInteractable
 {
+    [SerializeField]
     public UnityEvent Events;
     public void Interact()
     {
-        print("do");
         Events.Invoke();
     }
 }

@@ -19,8 +19,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private CharacterController controller;
 
+    public bool allowedToMove = true;
+
+    public bool AllowedToMove { set { allowedToMove = value; } }
+
     void Update()
     {
+        if (!allowedToMove)
+            return;
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 

@@ -9,6 +9,8 @@ public class CodeLock : MonoBehaviour
     public UnityEvent RightCode;
     public UnityEvent WrongCode;
 
+    public UnityEvent Stop;
+
     [SerializeField] private TMP_Text display;
 
     [SerializeField] List<int> rightCode;
@@ -16,6 +18,8 @@ public class CodeLock : MonoBehaviour
     private List<int> numbers = new();
 
     private bool disabled = false;
+
+    
 
     public void AddNumber(int number)
     {
@@ -64,7 +68,7 @@ public class CodeLock : MonoBehaviour
 
         if (goodNumber == rightCode.Count)
         {
-            Right();
+            StartCoroutine(Right());
         }
         else
         {
@@ -74,13 +78,18 @@ public class CodeLock : MonoBehaviour
 
     public void Quit()
     {
+        Stop?.Invoke();
         gameObject.SetActive(false);
     }
 
-    private void Right()
+    private IEnumerator Right()
     {
         RightCode.Invoke();
         display.text = "Door opening....";
+
+        yield return new WaitForSeconds(2f);
+
+        Quit();
     }
 
     private IEnumerator Wrong()
