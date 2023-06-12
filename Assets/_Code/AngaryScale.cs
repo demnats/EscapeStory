@@ -6,7 +6,8 @@ using Unity.Mathematics;
 
 public class AngaryScale : MonoBehaviour
 {
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private MonoBehaviour[] enemyBehaviours;
+    [SerializeField] private Renderer renderer;
 
     [SerializeField] private float angryScale;
     [SerializeField] private float angryScaleMax;
@@ -17,7 +18,11 @@ public class AngaryScale : MonoBehaviour
 
     private void Start()
     {
-        enemy.SetActive(false);
+        foreach(MonoBehaviour behaviour in enemyBehaviours)
+        {
+            behaviour.enabled = false;
+        }
+        renderer.enabled = false;
     }
 
     private void UpdateSlider()
@@ -26,7 +31,11 @@ public class AngaryScale : MonoBehaviour
 
         if(slider.value > 0.7)
         {
-            enemy.SetActive(true);
+            foreach (MonoBehaviour behaviour in enemyBehaviours)
+            {
+                behaviour.enabled = true;
+            }
+            renderer.enabled = true;
         }
     }
 
@@ -34,6 +43,13 @@ public class AngaryScale : MonoBehaviour
     {
         angryScale++;
         timer = 0;
+
+        UpdateSlider();
+    }
+
+    public void AddAmount(float amount)
+    {
+        angryScale += amount;
 
         UpdateSlider();
     }

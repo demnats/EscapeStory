@@ -8,6 +8,9 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private Transform handTransform;
 
+    [SerializeField] private float upwardsThrow = 1;
+    [SerializeField] private float forwardsThrow = 5;
+
     public GameObject HoldingItem => holdingItem;
 
     public void PickUp(GameObject item)
@@ -30,6 +33,8 @@ public class Inventory : MonoBehaviour
         holdingItem.transform.SetParent(null);
         holdingItem.GetComponent<IItem>().Drop();
         holdingItem.GetComponent<Rigidbody>().isKinematic = false;
+
+        holdingItem.GetComponent<Rigidbody>().AddForce(handTransform.forward * forwardsThrow + handTransform.up * upwardsThrow);
 
         holdingItem = null;
     }

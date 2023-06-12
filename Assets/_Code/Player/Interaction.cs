@@ -18,7 +18,6 @@ public class Interaction : MonoBehaviour
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, distance, mask))
             {
-                print(hit.collider.gameObject.name);
 
                 IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>(); 
                 if(interactable != null)
