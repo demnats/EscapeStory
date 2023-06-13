@@ -97,7 +97,7 @@ public class CodeLock : MonoBehaviour
         WrongCode.Invoke();
         display.text = "Wrong";
         disabled = true;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
         disabled = false;
         ResetCode();
     }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public UnityEvent Running;
+    public UnityEvent Running ;
 
     [SerializeField] private float move;
 
@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public bool allowedToMove = true;
 
     public bool AllowedToMove { set { allowedToMove = value; } }
+
+    private int runCounter = 0;
 
     void Update()
     {
