@@ -21,6 +21,8 @@ public class FieldOfView : MonoBehaviour
 
     public bool canSeePlayer;
 
+    public bool PlayerHiding = false;
+
     public float OriginRadius
     {
         get
@@ -42,7 +44,10 @@ public class FieldOfView : MonoBehaviour
         while (true)
         {
             yield return wait;
-            FieldOfViewCheck();
+            if (!PlayerHiding) 
+            {
+                FieldOfViewCheck();
+            }
         }
     }
 

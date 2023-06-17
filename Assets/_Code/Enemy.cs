@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private Transform[] wayPoint;
     private int wayPointNumber;
 
-    [SerializeField] Transform target;
+    [SerializeField] public Transform target;
     [SerializeField] FieldOfView fieldOfView;
 
     [SerializeField]
@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         playerLost = 0;
     }
 
-    private void LoseTarget()
+    public void LoseTarget()
     {
         playerLost += Time.deltaTime;
         if (playerLost > playerLostAfterSeconds)
