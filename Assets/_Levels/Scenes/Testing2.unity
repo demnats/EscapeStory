@@ -37959,7 +37959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 297902465}
-  upwardsThrow: 5
+  upwardsThrow: 2.5
   forwardsThrow: 250
 --- !u!114 &3066123225964439540
 MonoBehaviour:

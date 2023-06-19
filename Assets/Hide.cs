@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hide : MonoBehaviour
 {
     [SerializeField] private Transform reciever;
-    [SerializeField] private  GameObject player;
+    [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
 
     private Vector3 startPosition;
@@ -32,6 +32,7 @@ public class Hide : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && hiding)
         {
             StopHiding();
+            print("weird");
         }
     }
 
@@ -47,6 +48,13 @@ public class Hide : MonoBehaviour
         enemyView.canSeePlayer = false;
         enemyMovement.target = null;
 
+        StartCoroutine(GoHide());
+    }
+
+    private IEnumerator GoHide()
+    {
+        yield return new WaitForEndOfFrame();
+
         hiding = true;
     }
 
@@ -57,5 +65,7 @@ public class Hide : MonoBehaviour
         movement.enabled = true;
         characterController.enabled = true;
         enemyView.PlayerHiding = false;
+
+        hiding = false;
     }
 }
