@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using Unity.Mathematics;
 
-public class AngaryScale : MonoBehaviour
+public class AngryScale : MonoBehaviour
 {
     [SerializeField] private MonoBehaviour[] enemyBehaviours;
     [SerializeField] private Renderer renderer;
@@ -15,12 +15,19 @@ public class AngaryScale : MonoBehaviour
     [SerializeField] private float downScaleTime;
     [SerializeField] private Slider slider;
 
-    NavMeshAgent agent;
+    [SerializeField] private float addedFollowSpeed;
 
+    private float walkSpeed;
+
+    NavMeshAgent agent;
 
     private int timer = 0;
 
-    private void Start()
+    private bool allowMove = true;
+
+    public float Angry { get { return angryScale; } }
+
+    private void Awake()
     {
         foreach(MonoBehaviour behaviour in enemyBehaviours)
         {
@@ -29,6 +36,17 @@ public class AngaryScale : MonoBehaviour
         renderer.enabled = false;
 
         agent = GetComponent<NavMeshAgent>();
+        walkSpeed = agent.speed;
+    }
+
+    private void AllowMove(int allow)
+    {
+        allowMove = allow == 1;
+
+        if(!allowMove)
+        {
+            agent.speed = 0;
+        }
     }
 
     private void UpdateSlider()
@@ -49,13 +67,19 @@ public class AngaryScale : MonoBehaviour
     {
         angryScale++;
         timer = 0;
-        agent.speed += angryScale * 0.01f;
         UpdateSlider();
     }
 
     public void AddAmount(float amount)
     {
         angryScale += amount;
+
+        UpdateSlider();
+    }
+
+    public void SetScale(float amount)
+    {
+        angryScale = amount;
 
         UpdateSlider();
     }
@@ -67,10 +91,15 @@ public class AngaryScale : MonoBehaviour
         if(timer > downScaleTime)
         {
             angryScale--;
-            agent.speed -= angryScale * 0.01f;
             UpdateSlider();
         }
 
         angryScale = Mathf.Clamp(angryScale, 0, angryScaleMax);
+
+        if (!allowMove)
+            return;
+
+        agent.speed = walkSpeed + (slider.value * addedFollowSpeed);
     }
+
 }

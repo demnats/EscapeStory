@@ -47,6 +47,13 @@ public class Hide : MonoBehaviour
         enemyView.canSeePlayer = false;
         enemyMovement.target = null;
 
+        StartCoroutine(GoHide());
+    }
+
+    private IEnumerator GoHide()
+    {
+        yield return new WaitForEndOfFrame();
+
         hiding = true;
     }
 
@@ -57,5 +64,7 @@ public class Hide : MonoBehaviour
         movement.enabled = true;
         characterController.enabled = true;
         enemyView.PlayerHiding = false;
+
+        hiding = false;
     }
 }

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public UnityEvent Running ;
 
-    [SerializeField] private float move;
+    private float move;
 
     private float gravity = -9.81f;
 

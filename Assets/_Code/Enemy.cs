@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent meshAgent;
     private Animator animator;
+    private AngryScale angryScale;
 
     [SerializeField]
     private Transform[] wayPoint;
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         meshAgent = GetComponent<NavMeshAgent>();
         fieldOfView = GetComponent<FieldOfView>();
+        angryScale = GetComponent<AngryScale>();
 
         fieldOfView.seePlayer += SetTarget;
         fieldOfView.unseePlayer += LoseTarget;
@@ -37,11 +39,20 @@ public class Enemy : MonoBehaviour
     {
         if (target != null)
         {
-            Chasing(); 
+            Chasing();
+            if(angryScale.Angry < 600)
+            {
+                angryScale.SetScale(600);
+            }
+
         }
         else
         {
-            Search(); 
+            if(meshAgent.remainingDistance < 1)
+            {
+                NextWaypoint();
+                Search();
+            }
         }
     }
 
@@ -57,13 +68,15 @@ public class Enemy : MonoBehaviour
 
     private void SetTarget(Transform t)
     {
-        if(playerLost != 0)
+        if(target == null)
         {
-            animator.SetTrigger("SeePlayer");
+            animator.Play("Shout_1");
             See.Invoke();
-        }
 
-        target = t;
+            print("setT");
+
+            target = t;
+        }
         playerLost = 0;
     }
 
@@ -73,7 +86,6 @@ public class Enemy : MonoBehaviour
         if (playerLost > playerLostAfterSeconds)
         {
             target = null;
-            animator.ResetTrigger("SeePlayer");
         }
     }
 

@@ -8,7 +8,7 @@ public class AlertMonster : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        AngaryScale scale = other.gameObject.GetComponent<AngaryScale>();
+        AngryScale scale = other.gameObject.GetComponent<AngryScale>();
 
         if (scale != null)
         {

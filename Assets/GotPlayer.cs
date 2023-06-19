@@ -7,6 +7,7 @@ public class GotPlayer : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform respawn;
     [SerializeField] private float waitseconds = 3;
+    [SerializeField] private Enemy enemy;
 
     [SerializeField] private GameObject camera;
     [SerializeField] private GameObject playerCamera;
@@ -35,6 +36,8 @@ public class GotPlayer : MonoBehaviour
 
             playerCamera.SetActive(true);
             camera.SetActive(false);
+
+            enemy.target = null;
 
             charaterController.enabled = true;
         }

@@ -66,19 +66,29 @@ public class FieldOfView : MonoBehaviour
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, directionToTarget, out hit, distanceToTarget, obstructionMask))
                 {
-                    canSeePlayer = true;
-                    seePlayer?.Invoke(target);
+                    if(!canSeePlayer)
+                    {
+                        seePlayer?.Invoke(target);
+                        canSeePlayer = true;
+                    }
                 }
                 else
                 {
-                    canSeePlayer = false;
-                    unseePlayer?.Invoke();
+                    if(canSeePlayer)
+                    {
+                        canSeePlayer = false;
+                        unseePlayer?.Invoke();
+                    }
                 }
             }
             else
             {
-                canSeePlayer = false;
-                unseePlayer?.Invoke();
+                if(canSeePlayer)
+                {
+                    canSeePlayer = false;
+                    unseePlayer?.Invoke();
+                }
+
             }
         }
         else if (canSeePlayer)
