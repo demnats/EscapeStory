@@ -59,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
             move = sneakWalkSpeed;
         }
         HandleCrouch();
+        float jump;
+        if (characterController.isGrounded && Input.GetButtonDown("Jump"))
+        {
+            jump = Mathf.Sqrt(5 * -2f * gravity);
+        }
 
         characterController.Move((z * transform.forward + x * transform.right) * move);
 
