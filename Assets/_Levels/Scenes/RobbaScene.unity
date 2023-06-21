@@ -4394,7 +4394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332350951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.63, y: 1.24, z: -9.22}
+  m_LocalPosition: {x: 7.63, y: 1.593, z: -9.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -41420,6 +41420,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75e8c05fb2e3047bdb20258b4e40d88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 1823688466}
+  crouchHeight: 0.5
+  standinghHeight: 2
+  timeToCrouch: 0.25
+  crouchCenter: {x: 0, y: 0.5, z: 0}
+  standingCenter: {x: 0, y: 0, z: 0}
   Running:
     m_PersistentCalls:
       m_Calls:
@@ -41460,8 +41466,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   sneakWalkSpeed: 0.01
-  movementSpeed: 0.03
-  controller: {fileID: 332350952}
+  movementSpeed: 0.05
+  characterController: {fileID: 332350952}
   allowedToMove: 1
 --- !u!114 &3066123225964439538
 MonoBehaviour:

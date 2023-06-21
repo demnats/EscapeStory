@@ -5,6 +5,19 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    private Camera playerCamera;
+    private bool ShouldCrouch => Input.GetKeyDown(KeyCode.LeftControl) && !duringCrouchAnim && characterController.isGrounded;
+    [Header("Crouching Parameters")]
+
+    [SerializeField] private float crouchHeight = 0.5f;
+    [SerializeField] private float standinghHeight = 2f;
+    [SerializeField] private float timeToCrouch = 0.25f;
+    [SerializeField] private Vector3 crouchCenter = new Vector3(0, 0.5f, 0);
+    [SerializeField] private Vector3 standingCenter = new Vector3(0, 0, 0);
+    private bool isCrouching;
+    private bool duringCrouchAnim;
+
     public UnityEvent Running ;
 
     private float move;
@@ -17,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
 
     [SerializeField]
-    private CharacterController controller;
+    private CharacterController characterController;
 
     public bool allowedToMove = true;
 
@@ -45,8 +58,9 @@ public class PlayerMovement : MonoBehaviour
         {
             move = sneakWalkSpeed;
         }
+        HandleCrouch();
 
-        controller.Move((z * transform.forward + x * transform.right) * move);
+        characterController.Move((z * transform.forward + x * transform.right) * move);
 
         Gravity();
     }
@@ -54,6 +68,41 @@ public class PlayerMovement : MonoBehaviour
     private void Gravity()
     {
         velocity = gravity * Time.deltaTime;
-        controller.Move(new Vector3(0, velocity, 0));
+        characterController.Move(new Vector3(0, velocity, 0));
+    }
+
+    private void HandleCrouch()
+    {
+        if (ShouldCrouch)
+            StartCoroutine(CrouchStand());
+
+    }
+
+    private IEnumerator CrouchStand()
+    {
+        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
+            yield break;
+
+        duringCrouchAnim = true;
+
+        float timeElapsed = 0;
+        float targetHeight = isCrouching ? standinghHeight : crouchHeight;
+        float currentHeight = characterController.height;
+        Vector3 targetCenter = isCrouching ? standingCenter : crouchCenter;
+        Vector3 currentCenter = characterController.center;
+
+        while (timeElapsed < timeToCrouch)
+        {
+            characterController.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
+            characterController.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        characterController.height = targetHeight;
+        characterController.center = targetCenter;
+
+        isCrouching = !isCrouching;
+
+        duringCrouchAnim = false;
     }
 }
