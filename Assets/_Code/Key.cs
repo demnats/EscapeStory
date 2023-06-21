@@ -22,10 +22,10 @@ public class Key : Item
 
     public void SetColor(Color color)
     {
-        print(color);
+        //print(color);
         if(color == keyColor)
         {
-            print("trySetColor");
+            //print("trySetColor");
             HasRightColor = true;
             RightColor.Invoke();
         }

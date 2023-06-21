@@ -7,13 +7,13 @@ public class PlayerMovement : MonoBehaviour
 {
     public UnityEvent Running ;
 
-    [SerializeField] private float move;
+    [SerializeField] public float move;
 
     private float gravity = -9.81f;
 
     private float velocity;
 
-    [SerializeField] private float sneakWalkSpeed;
+    [SerializeField] public float sneakWalkSpeed;
     [SerializeField] private float movementSpeed;
 
     [SerializeField]
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            move = sneakWalkSpeed;
+            SneakWalk();
         }
 
         controller.Move((z * transform.forward + x * transform.right) * move);
@@ -55,5 +55,10 @@ public class PlayerMovement : MonoBehaviour
     {
         velocity = gravity * Time.deltaTime;
         controller.Move(new Vector3(0, velocity, 0));
+    }
+
+    public void SneakWalk()
+    {
+        move = sneakWalkSpeed;
     }
 }

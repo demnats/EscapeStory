@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Levels/Scenes/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+    path: Assets/_Levels/Scenes/Testing2.unity
+    guid: e22ac648f00016849812c4229572cacf
+  - enabled: 1
+    path: Assets/_Levels/Scenes/TestCrouch.unity
+    guid: 54149c42a8416e241beaf2bcd64490d4
   m_configObjects: {}

@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     private float playerLostAfterSeconds = 3;
     private float playerLost = 0;
 
+    public bool FollowingSound = false;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -85,7 +87,7 @@ public class Enemy : MonoBehaviour
 
     public void HearSound(Vector3 location)
     {
-        print("hear");
+        FollowingSound = true;
         meshAgent.SetDestination(location);
     }
 }

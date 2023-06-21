@@ -58,7 +58,7 @@ public class Hide : MonoBehaviour
         hiding = true;
     }
 
-    private void StopHiding()
+    public void StopHiding()
     {
         player.transform.position = startPosition;
 

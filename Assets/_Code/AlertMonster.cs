@@ -20,7 +20,7 @@ public class AlertMonster : MonoBehaviour
         if(enemy != null)
         {
             enemy.HearSound(transform.position);
-            Debug.Log(gameObject.name, this.gameObject);
+           // Debug.Log(gameObject.name, this.gameObject);
         }
     }
 }
