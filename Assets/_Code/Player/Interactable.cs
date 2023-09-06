@@ -10,6 +10,5 @@ public class Interactable : MonoBehaviour, IInteractable
     public void Interact()
     {
         Events.Invoke();
-        print("ola");
     }
 }

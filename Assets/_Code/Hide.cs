@@ -15,7 +15,7 @@ public class Hide : MonoBehaviour
     private FieldOfView enemyView;
     private Enemy enemyMovement;
 
-    private bool hiding = false;
+    public bool hiding = false;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +37,7 @@ public class Hide : MonoBehaviour
 
     public void Hiding()
     {
+
         startPosition = player.transform.position;
 
         movement.enabled = false;
@@ -55,6 +56,7 @@ public class Hide : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         hiding = true;
+
     }
 
     private void StopHiding()
