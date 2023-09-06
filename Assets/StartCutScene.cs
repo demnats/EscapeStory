@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StartCutScene : MonoBehaviour
 {
@@ -9,30 +11,19 @@ public class StartCutScene : MonoBehaviour
 
     [SerializeField] private GameObject startCanvas;
     [SerializeField] private GameObject canvas;
+    [SerializeField] private float waitSeconds;
 
+    public UnityEvent soundEffect;
 
-    private float timerPush;
     [SerializeField] private float timerMin = 0.3f;
-    private float timeBases = 0;
     private bool fadeIn = true;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M) && fadeIn)
         {
-            FadeIn();
-            print("Mworking");
-            print(canvasGroup.alpha);
-            timerPush++;
+            StartCoroutine(PressTime());
         }
 
-        if (timerPush > 0)
-        {
-            timerPush -= timerMin;
-        }
-        else
-        {
-            timerPush = timeBases;
-        }
 
         if (canvasGroup.alpha <= 0)
         {
@@ -54,5 +45,14 @@ public class StartCutScene : MonoBehaviour
         {
             fadeIn = true;
         }
+    }
+
+    IEnumerator PressTime()
+    {
+        FadeIn();
+        print("Mworking");
+        print(canvasGroup.alpha);
+        yield return new WaitForSeconds(waitSeconds);
+        soundEffect.Invoke();
     }
 }

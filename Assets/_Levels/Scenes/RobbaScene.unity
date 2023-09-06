@@ -29168,6 +29168,8 @@ MonoBehaviour:
   fadingSpeedMin: 0.1
   startCanvas: {fileID: 1769128281}
   canvas: {fileID: 1913782084}
+  waitSeconds: 1
+  timerMin: 0.3
 --- !u!4 &1603288109
 Transform:
   m_ObjectHideFlags: 0
